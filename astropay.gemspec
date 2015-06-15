@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["fmartin91@gmail.com"]
 
   spec.summary       = %q{ Astropay API client. }
+  spec.description   = %q{ Astropay API client. }
   spec.homepage      = "https://www.github.com/bilby91/astropay"
   spec.license       = "MIT"
 
@@ -18,10 +19,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rest-client"
-  spec.add_dependency "hasugar"
+  spec.add_dependency "hasugar", "~> 0.0"
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rspec", "~> 3.0"
 end
