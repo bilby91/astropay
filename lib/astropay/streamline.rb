@@ -2,6 +2,8 @@ module Astropay
 
   class Streamline < API
 
+    include Crypto
+
     def live_url
       'https://astropaycard.com/api_curl/streamline'
     end
@@ -11,35 +13,13 @@ module Astropay
     end
 
     def create_invoice(invoice_data)
-      request_data = invoice_data
-        .transform(
-          'invoice' => 'x_invoice',
-          'amount' => 'x_amount',
-          'currency' => 'x_currency',
-          'bank' => 'x_bank',
-          'country' => 'x_country',
-          'description' => 'x_description',
-          'user_id' => 'x_iduser',
-          'cpf' => 'x_cpf',
-          'name' => 'x_name',
-          'email' => 'x_email',
-          'birthday' => 'x_bdate',
-          'address' => 'x_address',
-          'zip' => 'x_zip',
-          'city' => 'x_city',
-          'state' => 'x_state',
-          'phone' => 'x_mobile',
-          'return_url' => 'x_return',
-          'confirm_url' => 'x_confirmation'
-        )
+      control_string = build_control_string(invoice_data)
 
-      control_string = build_control_string(request_data)
-
-      request_data
+      invoice_data
         .merge!(config.credentials)
         .merge!('control' => control_string, 'type' => 'json' )
 
-      request('/NewInvoice', request_data)
+      request('/NewInvoice', invoice_data)
     end
 
     def build_control_string(invoice_data)
@@ -56,8 +36,7 @@ module Astropay
         "#{invoice_data['x_city']}S"\
         "#{invoice_data['x_state']}P"
 
-      control_string = OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, [config.secret_key].pack('A*'), [canonical_string].pack('A*'))
-      control_string.upcase
+      control_string(canonical_string, config.secret_key)
     end
 
   end

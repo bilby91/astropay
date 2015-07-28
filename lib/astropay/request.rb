@@ -15,7 +15,11 @@ module Astropay
 
       response = http.request(request)
 
-      JSON.parse(response.body)
+      begin
+        JSON.parse(response.body)
+      rescue
+        response.body
+      end
     end
 
   end

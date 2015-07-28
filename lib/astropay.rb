@@ -7,8 +7,10 @@ require 'json'
 
 require_relative 'astropay/configuration'
 require_relative 'astropay/request'
+require_relative 'astropay/crypto'
 
 require_relative 'astropay/api'
+require_relative 'astropay/credit_card'
 require_relative 'astropay/streamline'
 require_relative 'astropay/apd'
 require_relative 'astropay/webpaystatus'
