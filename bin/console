@@ -10,5 +10,15 @@ require "astropay"
 # require "pry"
 # Pry.start
 
+Astropay.configure do |config|
+  config.x_login = ENV['ASTRO_PAY_X_LOGIN']
+  config.x_trans_key = ENV['ASTRO_PAY_X_TRANS_KEY']
+  config.secret_key = ENV['ASTRO_PAY_X_SECRET_KEY']
+  config.x_login_webpaystatus = ENV['ASTRO_PAY_X_LOGIN_WEBPAY_STATUS']
+  config.x_trans_key_webpaystatus = ENV['ASTRO_PAY_X_TRANS_KEY_WEBPAY_STATUS']
+  config.ssl_enabled = false
+  config.sandbox = true
+end
+
 require "irb"
 IRB.start
